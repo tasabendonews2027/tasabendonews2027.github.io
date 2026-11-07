@@ -1,0 +1,24 @@
+﻿<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex"><title>Conectar conta · Ta Sabendo? news</title>
+<link rel="stylesheet" href="estilo.css"></head><body>
+<header><div class="in"><a href="./">Ta Sabendo?</a><span>NEWS</span></div></header>
+<main>
+<h1>Conectar a conta do TikTok</h1>
+<p>Esta página é usada pelo responsável pelo canal para autorizar a ferramenta interna de publicação. Depois da autorização, os vídeos aprovados são enviados à conta do canal como rascunho (para revisar e publicar no app) ou publicados diretamente, conforme a escolha do responsável.</p>
+<p>Permissões pedidas: <code>user.info.basic</code> (nome e foto do perfil conectado), <code>video.upload</code> (enviar rascunhos) e <code>video.publish</code> (publicar).</p>
+<p><button id="entrar">Entrar com o TikTok</button></p>
+<p class="meta">Ao continuar você concorda com os <a href="termos.html">Termos de Uso</a> e a <a href="privacidade.html">Política de Privacidade</a>.</p>
+</main>
+<footer><a href="./">Início</a><a href="termos.html">Termos</a><a href="privacidade.html">Privacidade</a></footer>
+<script>
+const CLIENT_KEY = "sbaw26r3gwras44yjm";
+document.getElementById("entrar").onclick = () => {
+  const estado = crypto.getRandomValues(new Uint32Array(2)).join("");
+  try { sessionStorage.setItem("estado", estado); } catch (e) {}
+  const q = new URLSearchParams({client_key: CLIENT_KEY, scope: "user.info.basic,video.upload,video.publish",
+    response_type: "code", redirect_uri: "https://tasabendonews2027.github.io/callback.html", state: estado});
+  location.href = "https://www.tiktok.com/v2/auth/authorize/?" + q.toString();
+};
+</script>
+</body></html>
