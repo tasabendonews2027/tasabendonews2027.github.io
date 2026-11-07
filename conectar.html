@@ -17,7 +17,7 @@ document.getElementById("entrar").onclick = () => {
   const estado = crypto.getRandomValues(new Uint32Array(2)).join("");
   try { sessionStorage.setItem("estado", estado); } catch (e) {}
   const q = new URLSearchParams({client_key: CLIENT_KEY, scope: "user.info.basic,video.upload",
-    response_type: "code", redirect_uri: "https://tasabendonews2027.github.io/callback.html", state: estado});
+    response_type: "code", redirect_uri: "https://tasabendonews2027.github.io/callback.html", state: estado, disable_auto_auth: "1"});
   location.href = "https://www.tiktok.com/v2/auth/authorize/?" + q.toString();
 };
 </script>
