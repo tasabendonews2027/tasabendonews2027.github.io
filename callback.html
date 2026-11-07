@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex"><title>Conexão com o TikTok · Ta Sabendo? news</title>
+<link rel="stylesheet" href="estilo.css"></head><body>
+<header><div class="in"><a href="./">Ta Sabendo?</a><span>NEWS</span></div></header>
+<main>
+<h1 id="titulo">Conexão com o TikTok</h1>
+<p id="msg">Carregando…</p>
+<code class="box" id="codigo" hidden></code>
+<button id="copiar" hidden>Copiar código</button>
+</main>
+<script>
+const q = new URLSearchParams(location.search);
+const code = q.get("code"), erro = q.get("error");
+const msg = document.getElementById("msg"), box = document.getElementById("codigo"), bt = document.getElementById("copiar");
+if (code) {
+  msg.textContent = "Autorização recebida. Copie o código abaixo e mande no Telegram do canal (ele vale por poucos minutos).";
+  box.textContent = code; box.hidden = false; bt.hidden = false;
+  bt.onclick = () => navigator.clipboard.writeText(code).then(() => bt.textContent = "Copiado", () => {
+    const r = document.createRange(); r.selectNodeContents(box); getSelection().removeAllRanges(); getSelection().addRange(r);
+  });
+} else if (erro) {
+  msg.textContent = "A autorização não foi concluída: " + (q.get("error_description") || erro);
+} else {
+  msg.textContent = "Esta página recebe a autorização do TikTok para a ferramenta interna do canal.";
+}
+</script>
+</body></html>
